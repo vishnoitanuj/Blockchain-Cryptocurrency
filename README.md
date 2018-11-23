@@ -1,5 +1,7 @@
 # Getting Started with Blockchain
 
+This is a simple Blockchain application build on flash server. Implemented through various basics learnt on web.
+
 ### 1) Basics
 Blockchain is an immutable, sequential chain of records called Blocks. They can contain transactions, files or any data you like, really. But the important thing is that they’re chained together using hashes.
 
