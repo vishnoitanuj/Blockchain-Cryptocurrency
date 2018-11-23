@@ -25,7 +25,7 @@ class Blockchain(object):
 
         block = {
             'index' : len(self.chain) + 1,
-            'timestamp': time()
+            'timestamp': time(),
             'transactions': self.current_transaction,
             'proof': proof,
             'previous_hash' : previous_hash or self.hash(self.chain[-1]),
@@ -57,7 +57,7 @@ class Blockchain(object):
 
 
     def proof_of_work(self,last_proof):
-         """
+        """
         Simple Proof of Work Algorithm:
          - Find a number p' such that hash(pp') contains leading 4 zeroes, where p is the previous p'
          - p is the previous proof, and p' is the new proof
@@ -117,7 +117,7 @@ node_identifier = str(uuid4()).replace('-','')
 # Instantiate the Blockchain
 blockchain = Blockchain()
 
-@app.route('mine', methods=['GET'])
+@app.route('/mine', methods=['GET'])
 def mine():
     # We run the proof of work algorithm to get the next proof.
     last_block = blockchain.last_block
@@ -146,14 +146,22 @@ def mine():
 
     return jsonify(response), 200
 
-@app.roue('transactions/new', methods=['POST'])
+@app.route('/transactions/new', methods=['POST'])
 def new_transaction():
-    values = request.get_json()
+    try:
+        values = request.get_json()
 
-    # Check that the required fields are in the POST'ed data
-    required = ['sender', 'recipient', 'amount']
-    if not all(k in values for k in required):
-        return 'Missing values', 400
+        # Check that the required fields are in the POST'ed data
+        required = ['sender', 'recipient', 'amount']
+        if not all(k in values for k in required):
+            return 'Missing values', 400
+    except Exception as e:
+        values = {
+            "sender":"False",
+            "recipient":"False",
+            "amount":0,
+        }
+        print(e)
 
     # Create a new Transaction
     index = blockchain.new_transaction(values['sender'], values['recipient'], values['amount'])
@@ -172,4 +180,4 @@ def full_chain():
     return jsonify(response), 200
 
 if __name__ == '__main__':
-    app.run(host:'0.0.0.0', port=5000)
+    app.run(host='0.0.0.0', port=5000)
