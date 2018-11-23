@@ -62,8 +62,12 @@ class Blockchain(object):
 
         :param block: <dict>Block
         :return: <str>
+
         '''
-    
+
+        # We must make sure that Dictionary is Ordered, or we'll have inconsistent hashes
+        block_string = json.dumps(block, sort_keys=True).encode()
+        return hashlib.sha256(block_string).hexdigest()
 
     @property
     def last_block(self):
