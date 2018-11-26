@@ -41,3 +41,5 @@ Our mining endpoint is where the magic happens, and it’s easy. It has to do th
 1) Calculate the Proof of Work
 2) Reward the miner (us) by adding a transaction granting us 1 coin
 3) Forge the new Block by adding it to the chain
+
+### 4) Consensus
