@@ -43,3 +43,10 @@ Our mining endpoint is where the magic happens, and it’s easy. It has to do th
 3) Forge the new Block by adding it to the chain
 
 ### 4) Consensus
+
+We’ve got a basic Blockchain that accepts transactions and allows us to mine new Blocks. But the whole point of Blockchains is that they should be decentralized. And if they’re decentralized, how on earth do we ensure that they all reflect the same chain? This is called the problem of Consensus, and we’ll have to implement a Consensus Algorithm if we want more than one node in our network.
+
+Before we can implement a Consensus Algorithm, we need a way to let a node know about neighbouring nodes on the network. Each node on our network should keep a registry of other nodes on the network. Thus, we’ll need some more endpoints:
+
+1) ~~~~ /nodes/register ~~~~ to accept a list of new nodes in the form of URLs.
+2) ~~~~ /nodes/resolve ~~~~ to implement our Consensus Algorithm, which resolves any conflicts—to ensure a node has the correct chain.

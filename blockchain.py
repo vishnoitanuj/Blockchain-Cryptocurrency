@@ -6,10 +6,19 @@ from uuid import uuid4
 
 from flask import Flask, jsonify, request
 
+from urllib.parse import urlparse
+
 class Blockchain(object):
     def __init__(self):
         self.chain = []                 #Empty list to store blockchain
         self.current_transaction = []
+
+        '''
+        This is a cheap way of ensuring that the addition of new nodes is 
+        idempotent—meaning that no matter how many times we add a specific node, 
+        it appears exactly once.
+        '''
+        self.nodes = set()
 
         # Create the genesis block
         self.new_block(previous_hash=1, proof=100)
@@ -107,6 +116,15 @@ class Blockchain(object):
     def last_block(self):
         #Returns the last Block in the chain
         return self.chain[-1]
+
+    def register_nodes(self, address):
+        """
+        Add a new node to the list of nodes
+        :param address: <str> Address of node. Eg. 'http://192.168.0.5:5000'
+        :return: None
+        """
+        parsed_url = urlparse(address)
+        self.nodes.add(parsed_url.netloc)
 
 # Instantiate our Node
 app = Flask(__name__)
