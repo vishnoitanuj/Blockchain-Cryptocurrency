@@ -48,5 +48,5 @@ We’ve got a basic Blockchain that accepts transactions and allows us to mine n
 
 Before we can implement a Consensus Algorithm, we need a way to let a node know about neighbouring nodes on the network. Each node on our network should keep a registry of other nodes on the network. Thus, we’ll need some more endpoints:
 
-1) ~~~~ /nodes/register ~~~~ to accept a list of new nodes in the form of URLs.
-2) ~~~~ /nodes/resolve ~~~~ to implement our Consensus Algorithm, which resolves any conflicts—to ensure a node has the correct chain.
+1) <mark>/nodes/register</mark> to accept a list of new nodes in the form of URLs.
+2) <mark>/nodes/resolve</mark> to implement our Consensus Algorithm, which resolves any conflicts—to ensure a node has the correct chain.
